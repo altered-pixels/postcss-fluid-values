@@ -1,14 +1,19 @@
 {
-  "name": "postcss-fluid",
-  "version": "0.0.0",
+  "name": "postcss-fluid-values",
+  "version": "1.0.0",
   "description": "PostCSS plugin to add support for fluid transition of property values between breakpoints.",
-  "keywords": ["postcss", "css", "postcss-plugin", "postcss-fluid"],
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "postcss-fluid-values"
+  ],
   "scripts": {
     "test": "jest --coverage && eslint ."
   },
   "author": "PridyOK <aaron@alteredpixels.io>",
   "license": "MIT",
-  "repository": "altered-pixels/postcss-fluid",
+  "repository": "altered-pixels/postcss-fluid-values",
   "engines": {
     "node": ">=12.0.0"
   },
@@ -24,13 +29,16 @@
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 2017
+      "ecmaVersion": 2018
     },
     "env": {
       "node": true,
       "es6": true
     },
-    "extends": ["eslint:recommended", "plugin:jest/recommended"],
+    "extends": [
+      "eslint:recommended",
+      "plugin:jest/recommended"
+    ],
     "rules": {
       "jest/expect-expect": "off"
     }

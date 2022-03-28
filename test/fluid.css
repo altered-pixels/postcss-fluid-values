@@ -1,0 +1,25 @@
+@media screen and (min-width: 480px) {
+  body {
+    background-color: lightgreen;
+  }
+}
+
+#main {
+  border: 1px solid black;
+}
+
+ul li {
+  padding: 5px;
+}
+
+@fluid (480, 1440) {
+  .selector {
+    display: block;
+    width: 150->300;
+    height: ->50->100;
+  }
+
+  .another-selector {
+    margin-left: 20->50;
+  }
+}

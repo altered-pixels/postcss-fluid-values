@@ -1,0 +1,44 @@
+@media screen and (min-width: 480px) {
+  body {
+    background-color: lightgreen;
+  }
+}
+
+#main {
+  border: 1px solid black;
+}
+
+ul li {
+  padding: 5px;
+}
+
+.selector {
+  display: block;
+  width: 150px;
+}
+
+.another-selector {
+  margin-left: 20px;
+}
+
+@media screen and (min-width: 480px) {
+  .selector {
+    width: calc(15.625vw + 75px);
+    height: calc(5.208333333333334vw + 25px);
+  }
+
+  .another-selector {
+    margin-left: calc(3.125vw + 5px);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .selector {
+    width: 300px;
+    height: 100px;
+  }
+
+  .another-selector {
+    margin-left: 50px;
+  }
+}

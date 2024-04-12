@@ -1,0 +1,40 @@
+{
+  "name": "postcss-fluid-values",
+  "version": "0.0.0",
+  "description": "PostCSS plugin to simplify implementation of fluid property values.",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "postcss-fluid-values"
+  ],
+  "scripts": {
+    "unit": "node --test index.test.js",
+    "test": "npm run unit && eslint ."
+  },
+  "author": "PridyOK <aaron@alteredpixels.io>",
+  "license": "MIT",
+  "repository": "altered-pixels/postcss-fluid-values",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.27"
+  },
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "postcss": "^8.4.27"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ]
+  }
+}

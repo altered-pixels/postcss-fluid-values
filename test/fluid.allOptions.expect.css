@@ -1,0 +1,33 @@
+#main {
+  border: 1px solid black;
+}
+
+ul li {
+  padding: 5px clamp(0.5rem, 0.83333vw, 1rem) 10px;
+}
+
+.parent {
+  container: parent / inline-size
+}
+
+.selector {
+  display: block;
+  width: clamp(15rem, 25vw, 30rem);
+  height: clamp(5rem, 9.61538vw + 0.38462rem, 10rem);
+  padding-top: clamp(1rem, 5cqi - 0.5rem, 2rem);
+  margin: 0 5px clamp(1rem, 1.66667cqi + 0.33333rem, 2rem);
+}
+
+@media screen and (min-width: 1000px) {
+  body {
+    background-color: lightgreen;
+  }
+
+  .selector {
+    height: clamp(10rem, 10vw, 12rem);
+  }
+}
+
+.another-selector {
+  margin-left: clamp(2rem, 5vw - 1rem, 5rem);
+}

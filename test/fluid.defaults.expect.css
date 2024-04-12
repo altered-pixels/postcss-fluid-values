@@ -1,0 +1,33 @@
+#main {
+  border: 1px solid black;
+}
+
+ul li {
+  padding: 5px clamp(calc(5 / var(--rem-base, 16) * 1rem), (5 / var(--rem-base, 16) * 1rem) + 5 * ((100vw - (600 / var(--rem-base, 16) * 1rem)) / 600), calc(10 / var(--rem-base, 16) * 1rem)) 10px;
+}
+
+.parent {
+  container: parent / inline-size
+}
+
+.selector {
+  display: block;
+  width: clamp(calc(150 / var(--rem-base, 16) * 1rem), (150 / var(--rem-base, 16) * 1rem) + 150 * ((100vw - (600 / var(--rem-base, 16) * 1rem)) / 600), calc(300 / var(--rem-base, 16) * 1rem));
+  height: clamp(calc(50 / var(--rem-base, 16) * 1rem), (50 / var(--rem-base, 16) * 1rem) + 50 * ((100vw - (480 / var(--rem-base, 16) * 1rem)) / 520), calc(100 / var(--rem-base, 16) * 1rem));
+  padding-top: clamp(calc(10 / var(--rem-base, 16) * 1rem), (10 / var(--rem-base, 16) * 1rem) + 10 * ((100cqi - (300 / var(--rem-base, 16) * 1rem)) / 200), calc(20 / var(--rem-base, 16) * 1rem));
+  margin: 0 5px clamp(calc(10 / var(--rem-base, 16) * 1rem), (10 / var(--rem-base, 16) * 1rem) + 10 * ((100cqi - (400 / var(--rem-base, 16) * 1rem)) / 600), calc(20 / var(--rem-base, 16) * 1rem));
+}
+
+@media screen and (min-width: 1000px) {
+  body {
+    background-color: lightgreen;
+  }
+
+  .selector {
+    height: clamp(calc(100 / var(--rem-base, 16) * 1rem), (100 / var(--rem-base, 16) * 1rem) + 20 * ((100vw - (1000 / var(--rem-base, 16) * 1rem)) / 200), calc(120 / var(--rem-base, 16) * 1rem));
+  }
+}
+
+.another-selector {
+  margin-left: clamp(calc(20 / var(--rem-base, 16) * 1rem), (20 / var(--rem-base, 16) * 1rem) + 30 * ((100vw - (600 / var(--rem-base, 16) * 1rem)) / 600), calc(50 / var(--rem-base, 16) * 1rem));
+}

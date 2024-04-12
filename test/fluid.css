@@ -1,0 +1,33 @@
+#main {
+  border: 1px solid black;
+}
+
+ul li {
+  padding: 5px 5->10 10px;
+}
+
+.parent {
+  container: parent / inline-size
+}
+
+.selector {
+  display: block;
+  width: 150->300;
+  height: 50@480->100@1000;
+  padding-top: container(10@300->20@500);
+  margin: 0 5px c(10->20);
+}
+
+@media screen and (min-width: 1000px) {
+  body {
+    background-color: lightgreen;
+  }
+
+  .selector {
+    height: 100@1000->120;
+  }
+}
+
+.another-selector {
+  margin-left: 20->50;
+}

@@ -1,0 +1,16 @@
+{
+  "semi": false,
+  "arrowParens": "avoid",
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": [
+        "*.css",
+        "*.liquid"
+      ],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+#main {
+  border: 1px solid black;
+}
+
+ul li {
+  padding: 5px clamp(0.5rem, 0.5rem + 5 * ((100vw - (var(--fluid-start, 390) / 10 * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), 1rem) 10px;
+}
+
+.parent {
+  container: parent / inline-size
+}
+
+.selector {
+  display: block;
+  width: clamp(15rem, 15rem + 150 * ((100vw - (var(--fluid-start, 390) / 10 * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), 30rem);
+  height: clamp(5rem, 9.61538vw + 0.38462rem, 10rem);
+  padding-top: clamp(1rem, 5cqi - 0.5rem, 2rem);
+  margin: 0 5px clamp(1rem, 1rem + 10 * ((100cqi - (var(--fluid-container-start, 300) / 10 * 1rem)) / (var(--fluid-container-end, 800) - var(--fluid-container-start, 300))), 2rem);
+}
+
+@media screen and (min-width: 1000px) {
+  body {
+    background-color: lightgreen;
+  }
+
+  .selector {
+    height: clamp(10rem, 10rem + 20 * ((100vw - 100rem) / (var(--fluid-end, 1440) - 1000)), 12rem);
+  }
+}
+
+.another-selector {
+  margin-left: clamp(2rem, 2rem + 30 * ((100vw - (var(--fluid-start, 390) / 10 * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), 5rem);
+}

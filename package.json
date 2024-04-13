@@ -1,6 +1,6 @@
 {
   "name": "postcss-fluid-values",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "PostCSS plugin to simplify implementation of fluid property values.",
   "keywords": [
     "postcss",

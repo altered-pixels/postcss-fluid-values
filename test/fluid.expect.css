@@ -12,6 +12,7 @@ ul li {
 
 .selector {
   display: block;
+  font-size: calc(10 / var(--rem-base, 16) * 1rem);
   width: clamp(calc(150 / var(--rem-base, 16) * 1rem), (150 / var(--rem-base, 16) * 1rem) + 150 * ((100vw - (var(--fluid-start, 390) / var(--rem-base, 16) * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(300 / var(--rem-base, 16) * 1rem));
   height: clamp(calc(50 / var(--rem-base, 16) * 1rem), (50 / var(--rem-base, 16) * 1rem) + 50 * ((100vw - (480 / var(--rem-base, 16) * 1rem)) / 520), calc(100 / var(--rem-base, 16) * 1rem));
   padding-top: clamp(calc(10 / var(--rem-base, 16) * 1rem), (10 / var(--rem-base, 16) * 1rem) + 10 * ((100cqi - (300 / var(--rem-base, 16) * 1rem)) / 200), calc(20 / var(--rem-base, 16) * 1rem));

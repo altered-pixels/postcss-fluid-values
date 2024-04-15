@@ -71,6 +71,8 @@ module.exports = (opts = {}) => {
     return `(${value} / ${remBase ?? 'var(--rem-base, 16)'} * 1rem)`
   }
 
+  const parseValue = input => valuePattern.exec(input)?.groups ?? {}
+
   const add = (v1, v2) => {
     if (zeroPattern.exec(v1)) return v2
     if (zeroPattern.exec(v2)) return v1
@@ -78,13 +80,13 @@ module.exports = (opts = {}) => {
     if (typeof v2 === 'number') {
       if (typeof v1 === 'number') return v1 + v2
 
-      const { value, unit } = valuePattern.exec(v1)?.groups ?? {}
+      const { value, unit } = parseValue(v1)
 
       if (value) return withUnit(value + v2, unit)
     } else if (v2.startsWith('-')) return subtract(v1, v2.slice(1))
 
     if (typeof v1 === 'number') {
-      const { value, unit } = valuePattern.exec(v2)?.groups ?? {}
+      const { value, unit } = parseValue(v2)
 
       if (value) return withUnit(v1 + value, unit)
     }
@@ -99,13 +101,13 @@ module.exports = (opts = {}) => {
     if (typeof v2 === 'number') {
       if (typeof v1 === 'number') return v1 - v2
 
-      const { value, unit } = valuePattern.exec(v1)?.groups ?? {}
+      const { value, unit } = parseValue(v1)
 
       if (value) return withUnit(value - v2, unit)
     } else if (v2.startsWith('-')) return add(v1, v2.slice(1))
 
     if (typeof v1 === 'number') {
-      const { value, unit } = valuePattern.exec(v2)?.groups ?? {}
+      const { value, unit } = parseValue(v2)
 
       if (value) return withUnit(v1 - value, unit)
     }
@@ -155,16 +157,21 @@ module.exports = (opts = {}) => {
 
   return {
     postcssPlugin: 'postcss-fluid-values',
-    Declaration(decl, postcss) {
+    Declaration(decl) {
       const match = pattern.exec(decl.value)
       if (match) {
-        const useContainer = containerPattern.exec(decl.value)
-        const unit = useContainer ? 'cqi' : 'vw'
         let { min, max, start, end } = values(match)
 
+        if (min === max) {
+          decl.value = decl.value.replace(match[0], calc(rem(min)))
+          return
+        }
+
+        const useContainer = containerPattern.exec(decl.value)
+        const unit = useContainer ? 'cqi' : 'vw'
         const target = useContainer?.[0] ?? match[0]
 
-        // TODO: Update, expose, or remove container defaults
+        // TODO: Update or remove container defaults
         start ??= useContainer
           ? defaultContainerStart ?? 'var(--fluid-container-start, 300)'
           : defaultStart ?? 'var(--fluid-start, 390)'

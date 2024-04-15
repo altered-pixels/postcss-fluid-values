@@ -1,4 +1,4 @@
-# postcss-fluid-values
+# PostCSS Fluid Values
 
 [PostCSS] plugin to support fluid transition of property values between breakpoints..
 

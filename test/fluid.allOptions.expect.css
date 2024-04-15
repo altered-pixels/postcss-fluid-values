@@ -12,6 +12,7 @@ ul li {
 
 .selector {
   display: block;
+  font-size: 1rem;
   width: clamp(15rem, 25vw, 30rem);
   height: clamp(5rem, 9.61538vw + 0.38462rem, 10rem);
   padding-top: clamp(1rem, 5cqi - 0.5rem, 2rem);

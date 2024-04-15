@@ -1,6 +1,6 @@
 {
   "name": "postcss-fluid-values",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "PostCSS plugin to simplify implementation of fluid property values.",
   "keywords": [
     "postcss",
@@ -27,7 +27,7 @@
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 2017
+      "ecmaVersion": "latest"
     },
     "env": {
       "node": true,

@@ -12,6 +12,7 @@ ul li {
 
 .selector {
   display: block;
+  border-width: clamp(calc(2.5 / var(--rem-base, 16) * 1rem), (2.5 / var(--rem-base, 16) * 1rem) + 0.5 * ((100vw - (600 / var(--rem-base, 16) * 1rem)) / 600), calc(3 / var(--rem-base, 16) * 1rem));
   font-size: calc(10 / var(--rem-base, 16) * 1rem);
   width: clamp(calc(150 / var(--rem-base, 16) * 1rem), (150 / var(--rem-base, 16) * 1rem) + 150 * ((100vw - (600 / var(--rem-base, 16) * 1rem)) / 600), calc(300 / var(--rem-base, 16) * 1rem));
   height: clamp(calc(50 / var(--rem-base, 16) * 1rem), (50 / var(--rem-base, 16) * 1rem) + 50 * ((100vw - (480 / var(--rem-base, 16) * 1rem)) / 520), calc(100 / var(--rem-base, 16) * 1rem));

@@ -10,10 +10,11 @@ module.exports = (opts = {}) => {
     containerEnd: defaultContainerEnd,
   } = opts
 
+  // TODO: Extract reusable portions and use to construct patterns via RegExp constructor
   const pattern =
-    /(?<min>-?\d+)(?:px)?(?:@(?<start>\d+(?:px)?))?->(?<max>-?\d+)(?:px)?(?:@(?<end>\d+(?:px)?))?/
+    /(?<min>-?\d+(?:\.\d+)?)(?:px)?(?:@(?<start>\d+(?:px)?))?->(?<max>-?\d+(?:\.\d+)?)(?:px)?(?:@(?<end>\d+(?:px)?))?/
   const containerPattern =
-    /(?:container|c)\(-?\d+(?:px)?(?:@\d+(?:px)?)?->-?\d+(?:px)?(?:@\d+(?:px)?)?\)/
+    /(?:container|c)\(-?\d+(?:\.\d+)?(?:px)?(?:@\d+(?:px)?)?->-?\d+(?:\.\d+)?(?:px)?(?:@\d+(?:px)?)?\)/
   const wrapPattern = /(\([^()]+?\))/g
   const valuePattern = /^(?<value>-?\d+\.?\d*)(?<unit>[a-z]*)$/
   const zeroPattern = /^0[a-z]*$/

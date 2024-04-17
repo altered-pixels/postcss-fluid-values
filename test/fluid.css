@@ -12,6 +12,7 @@ ul li {
 
 .selector {
   display: block;
+  border-width: 2.5->3;
   font-size: 10->10;
   width: 150->300;
   height: 50@480->100@1000;

@@ -1,3 +1,5 @@
+const { PATTERNS } = require('./lib/util/regexp')
+
 /**
  * @type {import('postcss').PluginCreator}
  */
@@ -10,27 +12,17 @@ module.exports = (opts = {}) => {
     containerEnd: defaultContainerEnd,
   } = opts
 
-  // TODO: Extract reusable portions and use to construct patterns via RegExp constructor
-  const pattern =
-    /(?<min>-?\d+(?:\.\d+)?)(?:px)?(?:@(?<start>\d+(?:px)?))?->(?<max>-?\d+(?:\.\d+)?)(?:px)?(?:@(?<end>\d+(?:px)?))?/
-  const containerPattern =
-    /(?:container|c)\(-?\d+(?:\.\d+)?(?:px)?(?:@\d+(?:px)?)?->-?\d+(?:\.\d+)?(?:px)?(?:@\d+(?:px)?)?\)/
-  const wrapPattern = /(\([^()]+?\))/g
-  const valuePattern = /^(?<value>-?\d+\.?\d*)(?<unit>[a-z]*)$/
-  const zeroPattern = /^0[a-z]*$/
-
   const integerOrDecimal = value =>
     Number.isInteger(value) ? value : parseFloat(value.toFixed(5))
 
-  // TODO: Test
   const extract = value => {
     if (!value.startsWith('(') || !value.endsWith(')')) return value
     const initialValue = value
 
     value = value.slice(1, -1)
 
-    while (value.match(wrapPattern)) {
-      value = value.replace(wrapPattern, '')
+    while (value.match(PATTERNS.wrap)) {
+      value = value.replace(PATTERNS.wrap, '')
     }
 
     return value.match(/[()]/) ? initialValue : initialValue.slice(1, -1)
@@ -45,8 +37,8 @@ module.exports = (opts = {}) => {
       return false
     value = value.slice(1, -1)
 
-    while (value.match(wrapPattern)) {
-      value = value.replace(wrapPattern, '')
+    while (value.match(PATTERNS.wrap)) {
+      value = value.replace(PATTERNS.wrap, '')
     }
 
     return !value.match(/[()]/)
@@ -55,13 +47,13 @@ module.exports = (opts = {}) => {
   const wrap = value => {
     if (isWrapped(value)) return value
 
-    return valuePattern.exec(value) ? value : `(${value})`
+    return PATTERNS.resolved.exec(value) ? value : `(${value})`
   }
 
   const calc = value => {
     value = extract(value)
 
-    return valuePattern.exec(value) ? value : `calc(${value})`
+    return PATTERNS.resolved.exec(value) ? value : `calc(${value})`
   }
 
   const rem = value => {
@@ -72,22 +64,22 @@ module.exports = (opts = {}) => {
     return `(${value} / ${remBase ?? 'var(--rem-base, 16)'} * 1rem)`
   }
 
-  const parseValue = input => valuePattern.exec(input)?.groups ?? {}
+  const parseNumericValue = input => PATTERNS.resolved.exec(input)?.groups ?? {}
 
   const add = (v1, v2) => {
-    if (zeroPattern.exec(v1)) return v2
-    if (zeroPattern.exec(v2)) return v1
+    if (PATTERNS.zero.exec(v1)) return v2
+    if (PATTERNS.zero.exec(v2)) return v1
 
     if (typeof v2 === 'number') {
       if (typeof v1 === 'number') return v1 + v2
 
-      const { value, unit } = parseValue(v1)
+      const { value, unit } = parseNumericValue(v1)
 
       if (value) return withUnit(value + v2, unit)
     } else if (v2.startsWith('-')) return subtract(v1, v2.slice(1))
 
     if (typeof v1 === 'number') {
-      const { value, unit } = parseValue(v2)
+      const { value, unit } = parseNumericValue(v2)
 
       if (value) return withUnit(v1 + value, unit)
     }
@@ -96,19 +88,19 @@ module.exports = (opts = {}) => {
   }
 
   const subtract = (v1, v2) => {
-    if (zeroPattern.exec(v1)) return v2
-    if (zeroPattern.exec(v2)) return v1
+    if (PATTERNS.zero.exec(v1)) return v2
+    if (PATTERNS.zero.exec(v2)) return v1
 
     if (typeof v2 === 'number') {
       if (typeof v1 === 'number') return v1 - v2
 
-      const { value, unit } = parseValue(v1)
+      const { value, unit } = parseNumericValue(v1)
 
       if (value) return withUnit(value - v2, unit)
     } else if (v2.startsWith('-')) return add(v1, v2.slice(1))
 
     if (typeof v1 === 'number') {
-      const { value, unit } = parseValue(v2)
+      const { value, unit } = parseNumericValue(v2)
 
       if (value) return withUnit(v1 - value, unit)
     }
@@ -117,7 +109,7 @@ module.exports = (opts = {}) => {
   }
 
   const multiply = (v1, v2) => {
-    if (zeroPattern.exec(v1) || zeroPattern.exec(v2)) return 0
+    if (PATTERNS.zero.exec(v1) || PATTERNS.zero.exec(v2)) return 0
     if (v1 === 1) return v2
     if (v2 === 1) return v1
 
@@ -129,7 +121,7 @@ module.exports = (opts = {}) => {
   }
 
   const divide = (v1, v2) => {
-    if (zeroPattern.exec(v1) || zeroPattern.exec(v2)) return 0
+    if (PATTERNS.zero.exec(v1) || PATTERNS.zero.exec(v2)) return 0
     if (v2 === 1) return v1
 
     if (typeof v1 === 'number' && typeof v2 === 'number') {
@@ -149,17 +141,25 @@ module.exports = (opts = {}) => {
 
   const values = match =>
     Object.entries(match.groups ?? {}).reduce(
-      (values, [key, value]) => ({
-        ...values,
-        [key]: value ? Number(value) : undefined,
-      }),
+      (values, [key, value]) => {
+        if (PATTERNS.resolved.exec(value)) {
+          value = Number(value.replace(/[^0-9.]/g, ''))
+        } else if (PATTERNS.variable.exec(value) && !value.startsWith('var')) {
+          value = `var${value}`
+        }
+
+        return {
+          ...values,
+          [key]: value,
+        }
+      },
       {}
     )
 
   return {
     postcssPlugin: 'postcss-fluid-values',
     Declaration(decl) {
-      const match = pattern.exec(decl.value)
+      const match = PATTERNS.fluid.exec(decl.value)
       if (match) {
         let { min, max, start, end } = values(match)
 
@@ -168,7 +168,7 @@ module.exports = (opts = {}) => {
           return
         }
 
-        const useContainer = containerPattern.exec(decl.value)
+        const useContainer = PATTERNS.container.exec(decl.value)
         const unit = useContainer ? 'cqi' : 'vw'
         const target = useContainer?.[0] ?? match[0]
 

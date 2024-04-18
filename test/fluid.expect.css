@@ -1,13 +1,23 @@
+:root {
+  --gap-min: 40;
+  --gap-max: 60;
+}
+
 #main {
   border: 1px solid black;
 }
 
 ul li {
   padding: 5px clamp(calc(5 / var(--rem-base, 16) * 1rem), (5 / var(--rem-base, 16) * 1rem) + 5 * ((100vw - (var(--fluid-start, 390) / var(--rem-base, 16) * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(10 / var(--rem-base, 16) * 1rem)) 10px;
+  margin: 5px clamp(calc(5 / var(--rem-base, 16) * 1rem), (5 / var(--rem-base, 16) * 1rem) + 5 * ((100vw - (var(--fluid-start, 390) / var(--rem-base, 16) * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(10 / var(--rem-base, 16) * 1rem)) clamp(calc(10 / var(--rem-base, 16) * 1rem), (10 / var(--rem-base, 16) * 1rem) + 5 * ((100vw - (var(--fluid-start, 390) / var(--rem-base, 16) * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(15 / var(--rem-base, 16) * 1rem));
 }
 
 .parent {
-  container: parent / inline-size
+  container: parent / inline-size;
+  display: grid;
+  gap: clamp(calc(var(--gap-min) / var(--rem-base, 16) * 1rem), (var(--gap-min) / var(--rem-base, 16) * 1rem) + (var(--gap-max) - var(--gap-min)) * ((100vw - (var(--fluid-start, 390) / var(--rem-base, 16) * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(var(--gap-max) / var(--rem-base, 16) * 1rem));
+  gap: clamp(calc(var(--gap-min) / var(--rem-base, 16) * 1rem), (var(--gap-min) / var(--rem-base, 16) * 1rem) + (var(--gap-max) - var(--gap-min)) * ((100vw - (var(--fluid-start, 390) / var(--rem-base, 16) * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(var(--gap-max) / var(--rem-base, 16) * 1rem));
+  gap: clamp(calc(var(--gap-min) / var(--rem-base, 16) * 1rem), (var(--gap-min) / var(--rem-base, 16) * 1rem) + (var(--gap-max) - var(--gap-min)) * ((100vw - (300 / var(--rem-base, 16) * 1rem)) / 700), calc(var(--gap-max) / var(--rem-base, 16) * 1rem));
 }
 
 .selector {

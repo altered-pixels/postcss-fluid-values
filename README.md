@@ -30,7 +30,10 @@
 
 ```css
 .parent {
-  container: parent / inline-size
+  container: parent / inline-size;
+  display: grid;
+  gap: (--gap-min)->(--gap-max);
+  padding: var(--padding-min)@300->var(--padding-max)@1000;
 }
 
 .selector {
@@ -46,7 +49,10 @@
 
 ```css
 .parent {
-  container: parent / inline-size
+  container: parent / inline-size;
+  display: grid;
+  gap: clamp(calc(var(--gap-min) / var(--rem-base, 16) * 1rem), (var(--gap-min) / var(--rem-base, 16) * 1rem) + (var(--gap-max) - var(--gap-min)) * ((100vw - (var(--fluid-start, 390) / var(--rem-base, 16) * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(var(--gap-max) / var(--rem-base, 16) * 1rem));
+  padding: clamp(calc(var(--padding-min) / var(--rem-base, 16) * 1rem), (var(--padding-min) / var(--rem-base, 16) * 1rem) + (var(--padding-max) - var(--padding-min)) * ((100vw - (300 / var(--rem-base, 16) * 1rem)) / 700), calc(var(--padding-max) / var(--rem-base, 16) * 1rem));
 }
 
 .selector {
@@ -62,7 +68,10 @@
 
 ```css
 .parent {
-  container: parent / inline-size
+  container: parent / inline-size;
+  display: grid;
+  gap: clamp(calc(var(--gap-min) / 10 * 1rem), (var(--gap-min) / 10 * 1rem) + (var(--gap-max) - var(--gap-min)) * ((100vw - 60rem) / 600), calc(var(--gap-max) / 10 * 1rem));
+  padding: clamp(calc(var(--padding-min) / 10 * 1rem), (var(--padding-min) / 10 * 1rem) + (var(--padding-max) - var(--padding-min)) * ((100vw - 30rem) / 700), calc(var(--padding-max) / 10 * 1rem));
 }
 
 .selector {

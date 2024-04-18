@@ -1,13 +1,23 @@
+:root {
+  --gap-min: 40;
+  --gap-max: 60;
+}
+
 #main {
   border: 1px solid black;
 }
 
 ul li {
   padding: 5px 5->10 10px;
+  margin: 5px 5->10 10->15;
 }
 
 .parent {
-  container: parent / inline-size
+  container: parent / inline-size;
+  display: grid;
+  gap: var(--gap-min)->var(--gap-max);
+  gap: (--gap-min)->(--gap-max);
+  gap: var(--gap-min)@300->var(--gap-max)@1000;
 }
 
 .selector {

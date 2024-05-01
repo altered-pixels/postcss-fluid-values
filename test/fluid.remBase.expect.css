@@ -18,6 +18,7 @@ ul li {
   gap: clamp(calc(var(--gap-min) / 10 * 1rem), (var(--gap-min) / 10 * 1rem) + (var(--gap-max) - var(--gap-min)) * ((100vw - (var(--fluid-start, 390) / 10 * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(var(--gap-max) / 10 * 1rem));
   gap: clamp(calc(var(--gap-min) / 10 * 1rem), (var(--gap-min) / 10 * 1rem) + (var(--gap-max) - var(--gap-min)) * ((100vw - (var(--fluid-start, 390) / 10 * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), calc(var(--gap-max) / 10 * 1rem));
   gap: clamp(calc(var(--gap-min) / 10 * 1rem), (var(--gap-min) / 10 * 1rem) + (var(--gap-max) - var(--gap-min)) * ((100vw - 30rem) / 700), calc(var(--gap-max) / 10 * 1rem));
+  margin-top: clamp(0.5rem, 1rem - 5 * ((100vw - (var(--fluid-start, 390) / 10 * 1rem)) / (var(--fluid-end, 1440) - var(--fluid-start, 390))), 1rem);
 }
 
 .selector {

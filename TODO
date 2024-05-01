@@ -1,0 +1,7 @@
+TODO:
+✔ Add tests for decimal values @done(24-04-17 17:29)
+☐ TEST WITH https://github.com/dimitrinicolas/ava-postcss-tester
+☐ Add CSS variable support for values
+☐ Simplify regular expressions via abstraction into smaller pieces
+☐ Update git history to follow conventional commits (merges etc.)
+☐ Handle large-to-small variable scaling

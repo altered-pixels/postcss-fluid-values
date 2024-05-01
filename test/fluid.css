@@ -18,6 +18,7 @@ ul li {
   gap: var(--gap-min)->var(--gap-max);
   gap: (--gap-min)->(--gap-max);
   gap: var(--gap-min)@300->var(--gap-max)@1000;
+  margin-top: 10->5;
 }
 
 .selector {

@@ -187,8 +187,13 @@ module.exports = (opts = {}) => {
           typeof start === 'number' &&
           typeof end === 'number'
 
-        const minValue = rem(min)
-        const maxValue = rem(max)
+        let minValue = rem(min)
+        let maxValue = rem(max)
+
+        if (typeof min === 'number' && typeof max === 'number' && min > max) {
+          // eslint-disable-next-line no-extra-semi
+          ;[minValue, maxValue] = [maxValue, minValue]
+        }
 
         // TODO: Remove this conditional and update test expectations to match new formula
         if (allValuesKnown) {

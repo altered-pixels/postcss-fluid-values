@@ -190,7 +190,31 @@ module.exports = (opts = {}) => {
         let minValue = rem(min)
         let maxValue = rem(max)
 
-        if (typeof min === 'number' && typeof max === 'number' && min > max) {
+        let minMaxCompareValues = { min, max }
+
+        // Check if variables have numeric values in their keys and compare them
+        if (
+          typeof min === 'string' &&
+          typeof max === 'string' &&
+          min.startsWith('var') &&
+          max.startsWith('var')
+        ) {
+          const minNumber = PATTERNS.variableKeyNumber.exec(min)?.groups.number
+          const maxNumber = PATTERNS.variableKeyNumber.exec(max)?.groups.number
+
+          if (minNumber && maxNumber) {
+            minMaxCompareValues = {
+              min: Number(minNumber.replace('_', '.')),
+              max: Number(maxNumber.replace('_', '.')),
+            }
+          }
+        }
+
+        if (
+          typeof minMaxCompareValues.min === 'number' &&
+          typeof minMaxCompareValues.max === 'number' &&
+          minMaxCompareValues.min > minMaxCompareValues.max
+        ) {
           // eslint-disable-next-line no-extra-semi
           ;[minValue, maxValue] = [maxValue, minValue]
         }
